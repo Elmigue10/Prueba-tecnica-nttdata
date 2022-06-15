@@ -1,11 +1,14 @@
 package com.nttdata.msafiliados.business.service;
 
+import com.nttdata.msafiliados.domain.dto.AfiliadoDto;
 import com.nttdata.msafiliados.domain.util.TipoDocumento;
 import com.nttdata.msafiliados.domain.entity.Afiliado;
 import com.nttdata.msafiliados.domain.exception.ApiRequestException;
 import com.nttdata.msafiliados.domain.repository.AfiliadoRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,62 +17,86 @@ public class AfiliadoService {
 
     private final AfiliadoRepository afiliadoRepository;
     private Afiliado afiliado;
+    private AfiliadoDto afiliadoDto;
+    private List<Afiliado> afiliados;
+    private List<AfiliadoDto> afiliadosDto;
     private TipoDocumento[] tiposDocumento;
+    private ModelMapper modelMapper;
 
     public AfiliadoService(AfiliadoRepository afiliadoRepository){
         this.afiliadoRepository = afiliadoRepository;
         this.afiliado = new Afiliado();
+        this.afiliadoDto = new AfiliadoDto();
+        this.afiliados = new ArrayList<>();
+        this.afiliadosDto = new ArrayList<>();
         this.tiposDocumento = TipoDocumento.values();
+        this.modelMapper = new ModelMapper();
     }
 
-    public List<Afiliado> getAll(){ return afiliadoRepository.findAll(); }
+    public List<AfiliadoDto> getAll(){
+        afiliados = afiliadoRepository.findAll();
+        return mapListAfiliadosDto(afiliados);
+    }
 
-    public Afiliado findById(Integer id){ return afiliadoRepository.findById(id).orElse(null); }
+    public AfiliadoDto findById(Integer id){
+        afiliado = afiliadoRepository.findById(id).orElse(null);
+        afiliadoDto = modelMapper.map(afiliado, AfiliadoDto.class);
+        return afiliadoDto;
+    }
 
-    public Afiliado findByNumeroIdentificacion(String numeroIdentificacion){
+    public AfiliadoDto findByNumeroIdentificacion(String numeroIdentificacion){
         if(numeroIdentificacion.isEmpty()){
             throw new ApiRequestException("El HttpQuery 'numeroIdentificacion' es requerido'");
         }
-        return afiliadoRepository.findAfiliadoByNumeroIdentificacion(numeroIdentificacion);
+        afiliado = afiliadoRepository.findAfiliadoByNumeroIdentificacion(numeroIdentificacion);
+        afiliadoDto = modelMapper.map(afiliado, AfiliadoDto.class);
+        return afiliadoDto;
     }
 
-    public List<Afiliado> findByUsuarioCreacion(String usuarioCreacion){
+    public List<AfiliadoDto> findByUsuarioCreacion(String usuarioCreacion){
         if(usuarioCreacion.isEmpty()){
             throw new ApiRequestException("El HttpQuery 'usuarioCreación' es requerido'");
         }
-        return afiliadoRepository.findAfiliadoByUsuarioCreacion(usuarioCreacion);
+        afiliados = afiliadoRepository.findAfiliadoByUsuarioCreacion(usuarioCreacion);
+        return mapListAfiliadosDto(afiliados);
     }
 
-    public List<Afiliado> filterByFechaCreacion(String fromDate, String toDate){
+    public List<AfiliadoDto> filterByFechaCreacion(String fromDate, String toDate){
         if(fromDate.isEmpty() || toDate.isEmpty()){
             throw new ApiRequestException("Los HttpQuery 'fromDate' y 'toDate' son requeridos'");
         }
-        return afiliadoRepository.filterByFechaCreacion(fromDate, toDate);
+        afiliados = afiliadoRepository.filterByFechaCreacion(fromDate, toDate);
+        return mapListAfiliadosDto(afiliados);
     }
 
-    public void saveAfiliado(Afiliado afiliadoReq){
-        if (!Arrays.stream(tiposDocumento).map(TipoDocumento::getName)
-                .filter(afiliadoReq.getTipoIdentificacion()::equals).findFirst().isPresent()) {
+    public void saveAfiliado(AfiliadoDto afiliadoDtoReq){
+        if (Arrays.stream(tiposDocumento).map(TipoDocumento::getName)
+                .noneMatch(afiliadoDtoReq.getTipoIdentificacion()::equals)) {
             throw new ApiRequestException("Tipo de documento invalido.");
         }
+
+        afiliado = modelMapper.map(afiliadoDtoReq, Afiliado.class);
+
         afiliadoRepository.save(afiliado);
     }
 
-    public void updateAfiliado(Afiliado afiliadoReq){
-        afiliado = findById(afiliadoReq.getAfiliadoId());
+    public void updateAfiliado(AfiliadoDto afiliadoDtoReq){
+        afiliadoDto = findById(afiliadoDtoReq.getAfiliadoId());
 
-        afiliado.setTipoIdentificacion(afiliadoReq.getTipoIdentificacion());
-        afiliado.setNumeroIdentificacion(afiliadoReq.getNumeroIdentificacion());
-        afiliado.setPrimerNombre(afiliadoReq.getPrimerNombre());
-        afiliado.setSegundoNombre(afiliadoReq.getSegundoNombre());
-        afiliado.setPrimerApellido(afiliadoReq.getPrimerApellido());
-        afiliado.setSegundoApellido(afiliadoReq.getSegundoApellido());
-        afiliado.setRiesgoCat(afiliadoReq.getRiesgoCat());
-        afiliado.setActivo(afiliadoReq.getActivo());
-        afiliado.setUsuarioUltimaModificacion(afiliadoReq.getUsuarioUltimaModificacion());
-        afiliado.setFechaUltimaModificacion(afiliadoReq.getFechaUltimaModificacion());
-        afiliado.setNumeroCuenta(afiliadoReq.getNumeroCuenta());
-        afiliado.setEstadoCuenta(afiliadoReq.getEstadoCuenta());
+        afiliado = modelMapper.map(afiliadoDto, Afiliado.class);
+
+        afiliado.setTipoIdentificacion(afiliadoDtoReq.getTipoIdentificacion());
+        afiliado.setNumeroIdentificacion(afiliadoDtoReq.getNumeroIdentificacion());
+        afiliado.setPrimerNombre(afiliadoDtoReq.getPrimerNombre());
+        afiliado.setSegundoNombre(afiliadoDtoReq.getSegundoNombre());
+        afiliado.setPrimerApellido(afiliadoDtoReq.getPrimerApellido());
+        afiliado.setSegundoApellido(afiliadoDtoReq.getSegundoApellido());
+        afiliado.setRiesgoCat(afiliadoDtoReq.getRiesgoCat());
+        afiliado.setActivo(afiliadoDtoReq.getActivo());
+        afiliado.setUsuarioUltimaModificacion(afiliadoDtoReq.getUsuarioUltimaModificacion());
+        afiliado.setFechaUltimaModificacion(afiliadoDtoReq.getFechaUltimaModificacion());
+        afiliado.setNumeroCuenta(afiliadoDtoReq.getNumeroCuenta());
+        afiliado.setEstadoCuenta(afiliadoDtoReq.getEstadoCuenta());
 
         afiliadoRepository.save(afiliado);
     }
@@ -78,4 +105,11 @@ public class AfiliadoService {
         afiliadoRepository.deleteById(id);
     }
 
+    public List<AfiliadoDto> mapListAfiliadosDto(List<Afiliado> afiliadosList){
+        afiliadosList.forEach( a -> {
+            this.afiliadoDto = modelMapper.map(a, AfiliadoDto.class);
+            this.afiliadosDto.add(afiliadoDto);
+        } );
+        return this.afiliadosDto;
+    }
 }
