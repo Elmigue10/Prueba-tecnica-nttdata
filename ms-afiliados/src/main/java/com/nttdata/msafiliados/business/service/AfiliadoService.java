@@ -106,6 +106,7 @@ public class AfiliadoService {
     }
 
     public List<AfiliadoDto> mapListAfiliadosDto(List<Afiliado> afiliadosList){
+        this.afiliadosDto = new ArrayList<>();
         afiliadosList.forEach( a -> {
             this.afiliadoDto = modelMapper.map(a, AfiliadoDto.class);
             this.afiliadosDto.add(afiliadoDto);

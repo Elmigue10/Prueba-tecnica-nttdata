@@ -1,9 +1,12 @@
 package com.nttdata.msafiliados.domain.entity;
 
-import lombok.ToString;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
-@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "COB_AFILIADO", schema = "GCCOBRANZAS")
 public class Afiliado {

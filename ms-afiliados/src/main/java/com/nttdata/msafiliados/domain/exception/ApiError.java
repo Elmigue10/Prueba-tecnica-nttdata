@@ -1,10 +1,10 @@
 package com.nttdata.msafiliados.domain.exception;
 
-public class ApiException {
+public class ApiError {
 
     private String message;
 
-    public ApiException(String message){
+    public ApiError(String message){
         this.message = message;
     }
 

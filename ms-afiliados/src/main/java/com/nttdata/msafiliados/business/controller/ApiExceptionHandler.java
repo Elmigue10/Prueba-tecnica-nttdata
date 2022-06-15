@@ -1,6 +1,6 @@
 package com.nttdata.msafiliados.business.controller;
 
-import com.nttdata.msafiliados.domain.exception.ApiException;
+import com.nttdata.msafiliados.domain.exception.ApiError;
 import com.nttdata.msafiliados.domain.exception.ApiRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ApiExceptionHandler {
 
     @ExceptionHandler(value = {ApiRequestException.class})
-    public ResponseEntity<ApiException> handleApiRequestException(ApiRequestException exception){
-        ApiException apiException = new ApiException(exception.getMessage());
-        return new ResponseEntity<>(apiException, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ApiError> handleApiRequestException(ApiRequestException exception){
+        ApiError apiError = new ApiError(exception.getMessage());
+        return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
     }
 
 }

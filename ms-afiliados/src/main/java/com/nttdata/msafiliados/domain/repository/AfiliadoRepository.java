@@ -14,7 +14,7 @@ public interface AfiliadoRepository extends JpaRepository<Afiliado, Integer> {
     @Query("SELECT a FROM Afiliado a WHERE a.usuarioCreacion=:usuarioCreacion")
     List<Afiliado> findAfiliadoByUsuarioCreacion(@Param("usuarioCreacion") String usuarioCreacion);
 
-    @Query("select a from Afiliado a where a.fechaCreacion >= :fromDate and a.fechaCreacion < :toDate")
-    List<Afiliado> filterByFechaCreacion(@Param("fromDate") String fromDate, @Param("toDate") String toDate);
+    @Query("select a from Afiliado a where a.fechaCreacion >= :fromDate and a.fechaCreacion <= :toDate")
+    List<Afiliado> filterByFechaCreacion(String fromDate, String toDate);
 
 }

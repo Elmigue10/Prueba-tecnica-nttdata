@@ -40,7 +40,7 @@ public class AfiliadoController {
 
     @ApiOperation("Filtrar busqueda por usuario de creacion")
     @GetMapping(value = "/filtrarUsuarioCreacion", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<AfiliadoDto>> filtrar(@RequestParam String usuarioCreacion){
+    public ResponseEntity<List<AfiliadoDto>> filtrarByUsuarioCreacion(@RequestParam String usuarioCreacion){
         return new ResponseEntity<>(afiliadoService.findByUsuarioCreacion(usuarioCreacion), HttpStatus.OK);
     }
 
