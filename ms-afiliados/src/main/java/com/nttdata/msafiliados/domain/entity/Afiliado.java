@@ -59,10 +59,6 @@ public class Afiliado {
         return afiliadoId;
     }
 
-    public void setAfiliadoId(Integer afiliadoId) {
-        this.afiliadoId = afiliadoId;
-    }
-
     public String getTipoIdentificacion() {
         return tipoIdentificacion;
     }
@@ -131,16 +127,8 @@ public class Afiliado {
         return usuarioCreacion;
     }
 
-    public void setUsuarioCreacion(String usuarioCreacion) {
-        this.usuarioCreacion = usuarioCreacion;
-    }
-
     public String getFechaCreacion() {
         return fechaCreacion;
-    }
-
-    public void setFechaCreacion(String fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
     }
 
     public String getUsuarioUltimaModificacion() {

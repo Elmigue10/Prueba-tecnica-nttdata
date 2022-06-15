@@ -24,20 +24,40 @@ public class AfiliadoService {
 
     public List<Afiliado> getAll(){ return afiliadoRepository.findAll(); }
 
-    public Afiliado findById(Integer id){ return afiliadoRepository.findById(id).get(); }
+    public Afiliado findById(Integer id){ return afiliadoRepository.findById(id).orElse(null); }
+
+    public Afiliado findByNumeroIdentificacion(String numeroIdentificacion){
+        if(numeroIdentificacion.isEmpty()){
+            throw new ApiRequestException("El HttpQuery 'numeroIdentificacion' es requerido'");
+        }
+        return afiliadoRepository.findAfiliadoByNumeroIdentificacion(numeroIdentificacion);
+    }
+
+    public List<Afiliado> findByUsuarioCreacion(String usuarioCreacion){
+        if(usuarioCreacion.isEmpty()){
+            throw new ApiRequestException("El HttpQuery 'usuarioCreación' es requerido'");
+        }
+        return afiliadoRepository.findAfiliadoByUsuarioCreacion(usuarioCreacion);
+    }
+
+    public List<Afiliado> filterByFechaCreacion(String fromDate, String toDate){
+        if(fromDate.isEmpty() || toDate.isEmpty()){
+            throw new ApiRequestException("Los HttpQuery 'fromDate' y 'toDate' son requeridos'");
+        }
+        return afiliadoRepository.filterByFechaCreacion(fromDate, toDate);
+    }
 
     public void saveAfiliado(Afiliado afiliadoReq){
-
         if (!Arrays.stream(tiposDocumento).map(TipoDocumento::getName)
                 .filter(afiliadoReq.getTipoIdentificacion()::equals).findFirst().isPresent()) {
             throw new ApiRequestException("Tipo de documento invalido.");
         }
         afiliadoRepository.save(afiliado);
-
     }
 
     public void updateAfiliado(Afiliado afiliadoReq){
         afiliado = findById(afiliadoReq.getAfiliadoId());
+
         afiliado.setTipoIdentificacion(afiliadoReq.getTipoIdentificacion());
         afiliado.setNumeroIdentificacion(afiliadoReq.getNumeroIdentificacion());
         afiliado.setPrimerNombre(afiliadoReq.getPrimerNombre());
