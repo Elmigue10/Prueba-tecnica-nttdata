@@ -28,12 +28,12 @@ public class SwaggerConfig {
 
     private ApiInfo getApiInfo() {
         return new ApiInfo(
-                "Order Service API",
-                "Order Service API Description",
+                "Afiliados API",
+                "Afiliados CRUD API",
                 "1.0",
                 "http://codmind.com/terms",
                 new Contact("Miguel",
-                        "https://github.com/Elmigue10",
+                        "https://www.nttdata.com/global/en/",
                         "miguelvalbuena1026@gmail.com"),
                 "LICENSE",
                 "LICENSE URL",

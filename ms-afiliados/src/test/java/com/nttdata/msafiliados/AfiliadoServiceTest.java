@@ -36,7 +36,6 @@ public class AfiliadoServiceTest extends AbstractTest{
 
     private List<AfiliadoDto> afiliadosDto = new ArrayList<>();
     private AfiliadoDto afiliadoDto = new AfiliadoDto();
-    private Afiliado afiliado = new Afiliado();
 
     @Test
     public void shouldListAfiliados(){
@@ -121,7 +120,7 @@ public class AfiliadoServiceTest extends AbstractTest{
     @Test
     public void shouldSaveAfiliado(){
         afiliadoDto = getAnyAfiliadoDto();
-        when(afiliadoRepository.save(Mockito.any(Afiliado.class))).thenReturn(afiliado);
+        when(afiliadoRepository.save(Mockito.any(Afiliado.class))).thenReturn(new Afiliado());
         afiliadoService.saveAfiliado(afiliadoDto);
         verify(afiliadoRepository, times(1)).save(Mockito.any(Afiliado.class));
     }
@@ -140,7 +139,7 @@ public class AfiliadoServiceTest extends AbstractTest{
     public void shouldUpdateAfiliado(){
         afiliadoDto = getAnyAfiliadoDto();
         when(afiliadoRepository.findById(1)).thenReturn(java.util.Optional.of(getAnyAfiliado()));
-        when(afiliadoRepository.save(Mockito.any(Afiliado.class))).thenReturn(afiliado);
+        when(afiliadoRepository.save(Mockito.any(Afiliado.class))).thenReturn(new Afiliado());
         afiliadoService.updateAfiliado(afiliadoDto);
         verify(afiliadoRepository, times(1)).findById(1);
         verify(afiliadoRepository, times(1)).save(Mockito.any(Afiliado.class));
