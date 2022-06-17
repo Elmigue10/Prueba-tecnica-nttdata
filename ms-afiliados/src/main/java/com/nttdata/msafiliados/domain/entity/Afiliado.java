@@ -1,10 +1,14 @@
 package com.nttdata.msafiliados.domain.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -58,111 +62,4 @@ public class Afiliado {
     @Column(name = "ESTADO_CUENTA")
     private String estadoCuenta;
 
-    public Integer getAfiliadoId() {
-        return afiliadoId;
-    }
-
-    public String getTipoIdentificacion() {
-        return tipoIdentificacion;
-    }
-
-    public void setTipoIdentificacion(String tipoIdentificacion) {
-        this.tipoIdentificacion = tipoIdentificacion;
-    }
-
-    public String getNumeroIdentificacion() {
-        return numeroIdentificacion;
-    }
-
-    public void setNumeroIdentificacion(String numeroIdentificacion) {
-        this.numeroIdentificacion = numeroIdentificacion;
-    }
-
-    public String getPrimerNombre() {
-        return primerNombre;
-    }
-
-    public void setPrimerNombre(String primerNombre) {
-        this.primerNombre = primerNombre;
-    }
-
-    public String getSegundoNombre() {
-        return segundoNombre;
-    }
-
-    public void setSegundoNombre(String segundoNombre) {
-        this.segundoNombre = segundoNombre;
-    }
-
-    public String getPrimerApellido() {
-        return primerApellido;
-    }
-
-    public void setPrimerApellido(String primerApellido) {
-        this.primerApellido = primerApellido;
-    }
-
-    public String getSegundoApellido() {
-        return segundoApellido;
-    }
-
-    public void setSegundoApellido(String segundoApellido) {
-        this.segundoApellido = segundoApellido;
-    }
-
-    public String getRiesgoCat() {
-        return riesgoCat;
-    }
-
-    public void setRiesgoCat(String riesgoCat) {
-        this.riesgoCat = riesgoCat;
-    }
-
-    public char getActivo() {
-        return activo;
-    }
-
-    public void setActivo(char activo) {
-        this.activo = activo;
-    }
-
-    public String getUsuarioCreacion() {
-        return usuarioCreacion;
-    }
-
-    public String getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public String getUsuarioUltimaModificacion() {
-        return usuarioUltimaModificacion;
-    }
-
-    public void setUsuarioUltimaModificacion(String usuarioUltimaModificacion) {
-        this.usuarioUltimaModificacion = usuarioUltimaModificacion;
-    }
-
-    public String getFechaUltimaModificacion() {
-        return fechaUltimaModificacion;
-    }
-
-    public void setFechaUltimaModificacion(String fechaUltimaModificacion) {
-        this.fechaUltimaModificacion = fechaUltimaModificacion;
-    }
-
-    public String getNumeroCuenta() {
-        return numeroCuenta;
-    }
-
-    public void setNumeroCuenta(String numeroCuenta) {
-        this.numeroCuenta = numeroCuenta;
-    }
-
-    public String getEstadoCuenta() {
-        return estadoCuenta;
-    }
-
-    public void setEstadoCuenta(String estadoCuenta) {
-        this.estadoCuenta = estadoCuenta;
-    }
 }

@@ -14,9 +14,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -36,8 +33,6 @@ public class AfiliadoControllerTest extends AbstractTest{
     @MockBean
     private AfiliadoService afiliadoService;
 
-    List<AfiliadoDto> afiliadoList = new ArrayList<>();
-
     @Test
     public void shouldListAfiliados() throws Exception {
         when(afiliadoService.getAll()).thenReturn(getAnyListAfiliadosDto());
@@ -46,14 +41,6 @@ public class AfiliadoControllerTest extends AbstractTest{
                 .content(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$[0].numeroIdentificacion", is("1000185557")))
                 .andExpect(status().isOk());
-    }
-
-    @Test
-    public void shouldSaveAfiliado() throws Exception {
-        mockMvc.perform(post("/api/v1/afiliado")
-                        .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(getAnyAfiliadoDto())))
-                .andExpect(status().isCreated());
     }
 
     @Test
@@ -104,6 +91,14 @@ public class AfiliadoControllerTest extends AbstractTest{
                 .andExpect(jsonPath("$[0].fechaCreacion", is("2020-11-17 16:00:00.000")))
                 .andExpect(jsonPath("$[1].fechaCreacion", is("2020-11-26 16:00:00.000")))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void shouldSaveAfiliado() throws Exception {
+        mockMvc.perform(post("/api/v1/afiliado")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(getAnyAfiliadoDto())))
+                .andExpect(status().isCreated());
     }
 
     @Test

@@ -16,74 +16,59 @@ import java.util.List;
 public class AfiliadoService {
 
     private final AfiliadoRepository afiliadoRepository;
-    private Afiliado afiliado;
-    private AfiliadoDto afiliadoDto;
-    private List<Afiliado> afiliados;
-    private List<AfiliadoDto> afiliadosDto;
-    private TipoDocumento[] tiposDocumento;
-    private ModelMapper modelMapper;
+    private ModelMapper modelMapper = new ModelMapper();
+    private TipoDocumento[] tiposDocumento = TipoDocumento.values();
 
     public AfiliadoService(AfiliadoRepository afiliadoRepository){
         this.afiliadoRepository = afiliadoRepository;
-        this.afiliado = new Afiliado();
-        this.afiliadoDto = new AfiliadoDto();
-        this.afiliados = new ArrayList<>();
-        this.afiliadosDto = new ArrayList<>();
-        this.tiposDocumento = TipoDocumento.values();
-        this.modelMapper = new ModelMapper();
     }
 
     public List<AfiliadoDto> getAll(){
-        afiliados = afiliadoRepository.findAll();
-        return mapListAfiliadosDto(afiliados);
+        List<Afiliado> afiliados = afiliadoRepository.findAll();
+        return mapListAfiliadosToDto(afiliados);
     }
 
     public AfiliadoDto findById(Integer id){
-        afiliado = afiliadoRepository.findById(id).orElse(null);
-        afiliadoDto = modelMapper.map(afiliado, AfiliadoDto.class);
-        return afiliadoDto;
+        Afiliado afiliado = afiliadoRepository.findById(id).orElse(null);
+        return modelMapper.map(afiliado, AfiliadoDto.class);
     }
 
     public AfiliadoDto findByNumeroIdentificacion(String numeroIdentificacion){
         if(numeroIdentificacion.isEmpty()){
             throw new ApiRequestException("El HttpQuery 'numeroIdentificacion' es requerido'");
         }
-        afiliado = afiliadoRepository.findAfiliadoByNumeroIdentificacion(numeroIdentificacion);
-        afiliadoDto = modelMapper.map(afiliado, AfiliadoDto.class);
-        return afiliadoDto;
+        Afiliado afiliado = afiliadoRepository.findAfiliadoByNumeroIdentificacion(numeroIdentificacion);
+        return modelMapper.map(afiliado, AfiliadoDto.class);
     }
 
     public List<AfiliadoDto> findByUsuarioCreacion(String usuarioCreacion){
         if(usuarioCreacion.isEmpty()){
             throw new ApiRequestException("El HttpQuery 'usuarioCreación' es requerido'");
         }
-        afiliados = afiliadoRepository.findAfiliadoByUsuarioCreacion(usuarioCreacion);
-        return mapListAfiliadosDto(afiliados);
+        List<Afiliado> afiliados = afiliadoRepository.findAfiliadoByUsuarioCreacion(usuarioCreacion);
+        return mapListAfiliadosToDto(afiliados);
     }
 
     public List<AfiliadoDto> filterByFechaCreacion(String fromDate, String toDate){
         if(fromDate.isEmpty() || toDate.isEmpty()){
             throw new ApiRequestException("Los HttpQuery 'fromDate' y 'toDate' son requeridos'");
         }
-        afiliados = afiliadoRepository.filterByFechaCreacion(fromDate, toDate);
-        return mapListAfiliadosDto(afiliados);
+        List<Afiliado> afiliados = afiliadoRepository.filterByFechaCreacion(fromDate, toDate);
+        return mapListAfiliadosToDto(afiliados);
     }
 
-    public void saveAfiliado(AfiliadoDto afiliadoDtoReq){
+    public void saveAfiliado(AfiliadoDto afiliadoDto){
         if (Arrays.stream(tiposDocumento).map(TipoDocumento::getName)
-                .noneMatch(afiliadoDtoReq.getTipoIdentificacion()::equals)) {
+                .noneMatch(afiliadoDto.getTipoIdentificacion()::equals)) {
             throw new ApiRequestException("Tipo de documento invalido.");
         }
-
-        afiliado = modelMapper.map(afiliadoDtoReq, Afiliado.class);
-
-        afiliadoRepository.save(afiliado);
+        afiliadoRepository.save(modelMapper.map(afiliadoDto, Afiliado.class));
     }
 
     public void updateAfiliado(AfiliadoDto afiliadoDtoReq){
-        afiliadoDto = findById(afiliadoDtoReq.getAfiliadoId());
+        AfiliadoDto afiliadoDto = findById(afiliadoDtoReq.getAfiliadoId());
 
-        afiliado = modelMapper.map(afiliadoDto, Afiliado.class);
+        Afiliado afiliado = modelMapper.map(afiliadoDto, Afiliado.class);
 
         afiliado.setTipoIdentificacion(afiliadoDtoReq.getTipoIdentificacion());
         afiliado.setNumeroIdentificacion(afiliadoDtoReq.getNumeroIdentificacion());
@@ -105,12 +90,13 @@ public class AfiliadoService {
         afiliadoRepository.deleteById(id);
     }
 
-    public List<AfiliadoDto> mapListAfiliadosDto(List<Afiliado> afiliadosList){
-        this.afiliadosDto = new ArrayList<>();
-        afiliadosList.forEach( a -> {
-            this.afiliadoDto = modelMapper.map(a, AfiliadoDto.class);
-            this.afiliadosDto.add(afiliadoDto);
-        } );
-        return this.afiliadosDto;
+    public List<AfiliadoDto> mapListAfiliadosToDto(List<Afiliado> afiliados){
+        List<AfiliadoDto> afiliadosDto = new ArrayList<>();
+        AfiliadoDto afiliadoDto;
+        for (Afiliado a : afiliados) {
+            afiliadoDto = modelMapper.map(a, AfiliadoDto.class);
+            afiliadosDto.add(afiliadoDto);
+        }
+        return afiliadosDto;
     }
 }
