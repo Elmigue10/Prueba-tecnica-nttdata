@@ -26,7 +26,7 @@ public class CasoService {
     }
 
     public CasoDto findById(Integer id){
-        Caso caso = casoRepository.findById(id).get();
+        Caso caso = casoRepository.findById(id).orElse(null);
         return modelMapper.map(caso, CasoDto.class);
     }
 
@@ -58,39 +58,39 @@ public class CasoService {
         casoRepository.save(modelMapper.map(casoDto, Caso.class));
     }
 
-    public void updateCaso(CasoDto casoDto){
-        Caso caso = casoRepository.findById(casoDto.getIdCaso()).get();
-
-        caso.setItemType(casoDto.getItemType());
-        caso.setItemKey(casoDto.getItemKey());
-        caso.setProceso(casoDto.getProceso());
-        caso.setProcesoEtapa(casoDto.getProcesoEtapa());
-        caso.setFechaActualEtapa(casoDto.getFechaActualEtapa());
-        caso.setClasificacionDeuda(casoDto.getClasificacionDeuda());
-        caso.setOrigenAsignacionCat(casoDto.getOrigenAsignacionCat());
-        caso.setComportamiento(casoDto.getComportamiento());
-        caso.setTipoIdentificacionEmp(casoDto.getTipoIdentificacionEmp());
-        caso.setNumeroIdentificacionEmp(casoDto.getNumeroIdentificacionEmp());
-        caso.setRiesgoEmpCat(casoDto.getRiesgoEmpCat());
-        caso.setPeriodoCosecha(casoDto.getPeriodoCosecha());
-        caso.setFechaUltimoPago(casoDto.getFechaUltimoPago());
-        caso.setUltimoPeriodoPagado(casoDto.getUltimoPeriodoPagado());
-        caso.setEstadoCasoCat(casoDto.getEstadoCasoCat());
-        caso.setGestorId(casoDto.getGestorId());
-        caso.setPeriodoInicial(casoDto.getPeriodoInicial());
-        caso.setPeriodoFinal(casoDto.getPeriodoFinal());
-        caso.setFechaInicioCaso(casoDto.getFechaInicioCaso());
-        caso.setFechaInicioProceso(casoDto.getFechaInicioProceso());
-        caso.setProcesoCausal(casoDto.getProcesoCausal());
-        caso.setFechaProcesoCausal(casoDto.getFechaProcesoCausal());
-        caso.setExcluirComunicado(casoDto.getExcluirComunicado());
-        caso.setSolicitudCobroId(casoDto.getSolicitudCobroId());
-        caso.setUsuarioUltimaModificacion(casoDto.getUsuarioUltimaModificacion());
-        caso.setFechaUltimaModificacion(casoDto.getFechaUltimaModificacion());
-        caso.setGestorExternoId(casoDto.getGestorExternoId());
-        caso.setFechaCorte(casoDto.getFechaCorte());
-        caso.setGestionExtendida(casoDto.getGestionExtendida());
-        caso.setGestionExtendidaFecha(casoDto.getGestionExtendidaFecha());
+    public void updateCaso(CasoDto casoDtoReq){
+        CasoDto casoDto = findById(casoDtoReq.getIdCaso());
+        Caso caso = modelMapper.map(casoDto, Caso.class);
+        caso.setItemType(casoDtoReq.getItemType());
+        caso.setItemKey(casoDtoReq.getItemKey());
+        caso.setProceso(casoDtoReq.getProceso());
+        caso.setProcesoEtapa(casoDtoReq.getProcesoEtapa());
+        caso.setFechaActualEtapa(casoDtoReq.getFechaActualEtapa());
+        caso.setClasificacionDeuda(casoDtoReq.getClasificacionDeuda());
+        caso.setOrigenAsignacionCat(casoDtoReq.getOrigenAsignacionCat());
+        caso.setComportamiento(casoDtoReq.getComportamiento());
+        caso.setTipoIdentificacionEmp(casoDtoReq.getTipoIdentificacionEmp());
+        caso.setNumeroIdentificacionEmp(casoDtoReq.getNumeroIdentificacionEmp());
+        caso.setRiesgoEmpCat(casoDtoReq.getRiesgoEmpCat());
+        caso.setPeriodoCosecha(casoDtoReq.getPeriodoCosecha());
+        caso.setFechaUltimoPago(casoDtoReq.getFechaUltimoPago());
+        caso.setUltimoPeriodoPagado(casoDtoReq.getUltimoPeriodoPagado());
+        caso.setEstadoCasoCat(casoDtoReq.getEstadoCasoCat());
+        caso.setGestorId(casoDtoReq.getGestorId());
+        caso.setPeriodoInicial(casoDtoReq.getPeriodoInicial());
+        caso.setPeriodoFinal(casoDtoReq.getPeriodoFinal());
+        caso.setFechaInicioCaso(casoDtoReq.getFechaInicioCaso());
+        caso.setFechaInicioProceso(casoDtoReq.getFechaInicioProceso());
+        caso.setProcesoCausal(casoDtoReq.getProcesoCausal());
+        caso.setFechaProcesoCausal(casoDtoReq.getFechaProcesoCausal());
+        caso.setExcluirComunicado(casoDtoReq.getExcluirComunicado());
+        caso.setSolicitudCobroId(casoDtoReq.getSolicitudCobroId());
+        caso.setUsuarioUltimaModificacion(casoDtoReq.getUsuarioUltimaModificacion());
+        caso.setFechaUltimaModificacion(casoDtoReq.getFechaUltimaModificacion());
+        caso.setGestorExternoId(casoDtoReq.getGestorExternoId());
+        caso.setFechaCorte(casoDtoReq.getFechaCorte());
+        caso.setGestionExtendida(casoDtoReq.getGestionExtendida());
+        caso.setGestionExtendidaFecha(casoDtoReq.getGestionExtendidaFecha());
 
         casoRepository.save(caso);
     }
