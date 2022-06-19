@@ -98,8 +98,8 @@ swagger generado automáticamente.
 
 ### Swagger:
 
-- ms-afiliados: GitHub (Swagger ms-afiliados).
-- ms-casos: GitHub (Swagger ms-casos).
+- ms-afiliados: [GitHub (Swagger ms-afiliados).](https://github.com/Elmigue10/Prueba-tecnica-nttdata/blob/feature/documentacion-ms/Documentos/Swagger%20ms-afiliados.yml)
+- ms-casos: [GitHub (Swagger ms-casos).](https://github.com/Elmigue10/Prueba-tecnica-nttdata/blob/feature/documentacion-ms/Documentos/Swagger%20ms-casos.yml)
 
 Finalmente, es necesario probar nuestra aplicación, para debemos desarrollar pruebas unitarias que
 se encarguen de verificar que cada una de nuestras líneas de código escritas funcionen como lo
