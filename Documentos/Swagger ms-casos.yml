@@ -1,0 +1,469 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Casos CRUD API",
+    "version": "1.0",
+    "title": "Casos API",
+    "termsOfService": "https://www.nttdata.com/global/en/",
+    "contact": {
+      "name": "Miguel",
+      "url": "https://github.com/Elmigue10",
+      "email": "miguelvalbuena1026@gmail.com"
+    },
+    "license": {
+      "name": "LICENSE",
+      "url": "http://license.com"
+    }
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "caso-controller",
+      "description": "Caso Controller"
+    }
+  ],
+  "paths": {
+    "/api/v1/caso": {
+      "get": {
+        "tags": [
+          "caso-controller"
+        ],
+        "summary": "Listar todos los casos",
+        "operationId": "getAllUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CasoDto"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "caso-controller"
+        ],
+        "summary": "Guardar un nuevo caso",
+        "operationId": "saveCasoUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "casoDto",
+            "description": "casoDto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CasoDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "caso-controller"
+        ],
+        "summary": "Actualizar un caso",
+        "operationId": "updateCasoUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "casoDto",
+            "description": "casoDto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CasoDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/caso/filtrarFechaInicioCaso": {
+      "get": {
+        "tags": [
+          "caso-controller"
+        ],
+        "summary": "Filtrar busqueda por intervalo de fecha de inicio de proceso",
+        "operationId": "filterCasosByFechaInicioCasoUsingGET",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "fromDate",
+            "in": "query",
+            "description": "fromDate",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "description": "toDate",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CasoDto"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/caso/filtrarGestorId": {
+      "get": {
+        "tags": [
+          "caso-controller"
+        ],
+        "summary": "Listar casos por gestorId",
+        "operationId": "findCasoByGestorIdUsingGET",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gestorId",
+            "in": "query",
+            "description": "gestorId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CasoDto"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/caso/filtrarUsuarioCreacion": {
+      "get": {
+        "tags": [
+          "caso-controller"
+        ],
+        "summary": "Listar casos por usuario de creacion",
+        "operationId": "findByUsuarioCreacionUsingGET",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "usuarioCreacion",
+            "in": "query",
+            "description": "usuarioCreacion",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CasoDto"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/caso/{id}": {
+      "get": {
+        "tags": [
+          "caso-controller"
+        ],
+        "summary": "Listar caso por Id",
+        "operationId": "findByIdUsingGET",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CasoDto"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "caso-controller"
+        ],
+        "summary": "Eliminar un caso por Id",
+        "operationId": "deleteCasoByIdUsingDELETE",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CasoDto": {
+      "type": "object",
+      "properties": {
+        "clasificacionDeuda": {
+          "type": "string"
+        },
+        "comportamiento": {
+          "type": "number",
+          "format": "float"
+        },
+        "estadoCasoCat": {
+          "type": "string"
+        },
+        "excluirComunicado": {
+          "type": "string"
+        },
+        "fechaActualEtapa": {
+          "type": "string"
+        },
+        "fechaCorte": {
+          "type": "string"
+        },
+        "fechaCreacion": {
+          "type": "string"
+        },
+        "fechaInicioCaso": {
+          "type": "string"
+        },
+        "fechaInicioProceso": {
+          "type": "string"
+        },
+        "fechaProcesoCausal": {
+          "type": "string"
+        },
+        "fechaUltimaModificacion": {
+          "type": "string"
+        },
+        "fechaUltimoPago": {
+          "type": "string"
+        },
+        "gestionExtendida": {
+          "type": "string"
+        },
+        "gestionExtendidaFecha": {
+          "type": "string"
+        },
+        "gestorExternoId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "gestorId": {
+          "type": "string"
+        },
+        "idCaso": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "itemKey": {
+          "type": "string"
+        },
+        "itemType": {
+          "type": "string"
+        },
+        "numeroIdentificacionEmp": {
+          "type": "string"
+        },
+        "origenAsignacionCat": {
+          "type": "string"
+        },
+        "periodoCosecha": {
+          "type": "number",
+          "format": "float"
+        },
+        "periodoFinal": {
+          "type": "number",
+          "format": "float"
+        },
+        "periodoInicial": {
+          "type": "number",
+          "format": "float"
+        },
+        "proceso": {
+          "type": "string"
+        },
+        "procesoCausal": {
+          "type": "string"
+        },
+        "procesoEtapa": {
+          "type": "string"
+        },
+        "riesgoEmpCat": {
+          "type": "string"
+        },
+        "solicitudCobroId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tipoIdentificacionEmp": {
+          "type": "string"
+        },
+        "ultimoPeriodoPagado": {
+          "type": "number",
+          "format": "float"
+        },
+        "usuarioCreacion": {
+          "type": "string"
+        },
+        "usuarioUltimaModificacion": {
+          "type": "string"
+        }
+      },
+      "title": "CasoDto"
+    }
+  }
+}
