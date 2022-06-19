@@ -1,6 +1,6 @@
 ## Prueba técnica para desarrollador backend
 
-###¿Qué deseamos evaluarte?
+### ¿Qué deseamos evaluarte?
 
 • Creatividad e innovación para resolver el reto.
 
@@ -64,7 +64,9 @@ necesarios para realizar todo tipo de consultas sobre la base de datos.
 Es por esta razón que en la capa ‘domain’ vamos a encontrar algunos paquetes como lo
 son: entity, dto, exception, repository, entre otros.
 
-![img](https://github.com/Elmigue10/Prueba-tecnica-nttdata/blob/feature/documentacion-ms/Documentos/Imagenes/domain_package.png)
+<p align="center"> 
+<img src="https://github.com/Elmigue10/Prueba-tecnica-nttdata/blob/feature/documentacion-ms/Documentos/Imagenes/domain_package.png">
+</p>
 
 - business: La capa ‘business’, es la encargada de toda la lógica de negocio de la aplicación,
 es decir, vamos a encontrar todas las funcionalidades que resuelven el problema para el
@@ -79,7 +81,9 @@ la aplicación, aplicando las reglas de negocio y validaciones previamente menci
 para de esta manera responder de manera correcta con el recurso que fue solicitado. Los
 paquetes que hacen parte de esta capa son los siguientes:
 
-![img](https://github.com/Elmigue10/Prueba-tecnica-nttdata/blob/feature/documentacion-ms/Documentos/Imagenes/business_package.png)
+<p align="center"> 
+<img src="https://github.com/Elmigue10/Prueba-tecnica-nttdata/blob/feature/documentacion-ms/Documentos/Imagenes/business_package.png">
+</p>
 
 - application: En la capa de application, vamos a encontrar clases de configuración de
 arranque para nuestra aplicación, estas clases las utilizamos para implementar algunas
@@ -88,7 +92,9 @@ documentación de la aplicación con Swagger, por lo cual, utilizamos una clase 
 configuración que nos ayuda a crear una url en nuestro servidor, para poder consultar el
 swagger generado automáticamente.
 
-![img](https://github.com/Elmigue10/Prueba-tecnica-nttdata/blob/feature/documentacion-ms/Documentos/Imagenes/application_package.png)
+<p align="center"> 
+<img src="https://github.com/Elmigue10/Prueba-tecnica-nttdata/blob/feature/documentacion-ms/Documentos/Imagenes/application_package.png">
+</p>
 
 ### Swagger:
 
@@ -105,6 +111,10 @@ creados. Con alguna herramienta de análisis de código estático, se asegura qu
 desarrollados cuentan con un porcentaje de cobertura mínimo de 80%, esto para asegurar que
 escribimos un código de calidad y que cumple con la función para el cual fue desarrollado.
 
-![img](https://github.com/Elmigue10/Prueba-tecnica-nttdata/blob/feature/documentacion-ms/Documentos/Imagenes/coverage.png)
+<p align="center"> 
+<img src="https://github.com/Elmigue10/Prueba-tecnica-nttdata/blob/feature/documentacion-ms/Documentos/Imagenes/coverage.png">
+</p>
 
-![img](https://github.com/Elmigue10/Prueba-tecnica-nttdata/blob/feature/documentacion-ms/Documentos/Imagenes/package_coverage.png)
+<p align="center"> 
+<img src="https://github.com/Elmigue10/Prueba-tecnica-nttdata/blob/feature/documentacion-ms/Documentos/Imagenes/package_coverage.png">
+</p>
