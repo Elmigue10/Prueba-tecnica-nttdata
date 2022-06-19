@@ -4,10 +4,10 @@
     "description": "Afiliados CRUD API",
     "version": "1.0",
     "title": "Afiliados API",
-    "termsOfService": "http://codmind.com/terms",
+    "termsOfService": "https://www.nttdata.com/global/en/",
     "contact": {
       "name": "Miguel",
-      "url": "https://www.nttdata.com/global/en/",
+      "url": "https://github.com/Elmigue10",
       "email": "miguelvalbuena1026@gmail.com"
     },
     "license": {
